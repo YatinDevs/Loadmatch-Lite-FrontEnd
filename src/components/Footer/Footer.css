@@ -1,0 +1,70 @@
+.top-section {
+  background-color: #3a1248;
+  width: 100%;
+}
+.top-section-body {
+  max-width: 1280px;
+  margin: auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.bottom-section {
+  width: 100%;
+  background-color: #2e013d;
+  padding: 16px;
+}
+.menuItems {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .menuItems {
+    margin-bottom: 10px;
+    gap: 30px;
+  }
+}
+
+.menuItems .menuItem {
+  transition: all ease 0.3s;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  .menuItems .menuItem {
+    font-size: 16px;
+  }
+}
+
+.menuItems .menuItem:hover {
+  color: #c90d9a; /* Light blue text color */
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.socialIcons .icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #3a1248;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+.socialIcons .icon:hover {
+  box-shadow: 0 0 0.625em #c90d9a; /* Light blue shadow */
+  color: #c90d9a; /* Light blue text color */
+}
