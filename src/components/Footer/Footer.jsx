@@ -98,16 +98,22 @@ function Footer() {
       </div>
       <div className="bg-[#2e013d] p-4 w-full">
         <ul className="menuItems text-center ">
-          <li className="menuItem">About Us</li>
-          <li className="menuItem">FAQ</li>
-          <li className="menuItem">Privacy Policy</li>
-          <li className="menuItem">Terms of Use</li>
-          <li className="menuItem">Refunds & Cancellation</li>
-          <li className="menuItem">Contact Us</li>
+          <div className=" flex gap-4 flex-col md:flex-row">
+            <div className="flex gap-4">
+              <li className="menuItem flex-1">About Us</li>
+              <li className="menuItem flex-1">FAQ</li>
+              <li className="menuItem flex-1">Privacy Policy</li>
+            </div>
+            <div className="flex gap-4">
+              <li className="menuItem flex-1">Terms of Use</li>
+              <li className="menuItem flex-1">Refunds & Cancellation</li>
+              <li className="menuItem flex-1">Contact Us</li>
+            </div>
+          </div>
         </ul>
         <p className="w-full text-center max-w-[1280px] mx-auto my-2 py-2  text-xs lg:text-lg font-bold">
           {" "}
-          © 2023 Zauba Technologies Private Limited. All rights reserved.
+          © 2024 Loadmatch Logistics Private Limited. All rights reserved.
         </p>
         <div className="socialIcons">
           <span className="icon">
