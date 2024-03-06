@@ -16,7 +16,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-[#3a1248] text-white text-opacity-80 w-full">
+    <footer className="bg-[#3a1248] mb-14 lg:mb-0 text-white text-opacity-80 w-full">
       <div className="">
         <div className="w-full max-w-[1280px] mx-auto my-0 px-4 py-8  ">
           <h1 className="text-xl my-2 font-bold">About Loadmatch Logistics</h1>

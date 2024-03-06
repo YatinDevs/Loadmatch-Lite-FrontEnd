@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./Hamburger.css";
 function Hamburger() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -8,7 +8,7 @@ function Hamburger() {
   };
 
   return (
-    <nav className="bg-white shadow  w-full ">
+    <nav className="bg-white shadow  w-full z-10 ">
       <div className="container mx-auto px-4">
         <input
           type="checkbox"
@@ -16,12 +16,18 @@ function Hamburger() {
           checked={menuOpen}
           onChange={toggleMenu}
           className="hidden"
+          aria-label="Toggle Menu"
         />
+
         <label
           htmlFor="toggle"
           className="md:hidden cursor-pointer flex items-center"
+          aria-label="Toggle Menu"
         >
-          <span className="hamburger-lines inline-block h-6 w-6 border border-solid border-gray-900"></span>
+          <span
+            className="hamburger-lines inline-block h-6 w-6 border border-solid border-gray-900"
+            aria-hidden="true"
+          ></span>
         </label>
 
         <ul

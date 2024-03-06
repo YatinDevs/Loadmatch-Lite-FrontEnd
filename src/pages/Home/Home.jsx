@@ -40,14 +40,14 @@ function Home() {
           <div>
             <button
               onClick={handleAddLoadClick}
-              className="border border-blue-300 rounded-lg p-5 text-2xl font-extrabold  bg-blue-400 hover:bg-blue-500"
+              className="border border-blue-300 rounded-2xl p-5 text-2xl font-extrabold  bg-blue-500 hover:bg-blue-500"
             >
               Add Load
             </button>
           </div>
           <button
             onClick={handleAddSpaceClick}
-            className="border border-blue-300 rounded-lg p-5  text-2xl font-extrabold bg-blue-400 hover:bg-blue-500"
+            className="border border-blue-300 rounded-2xl p-5  text-2xl font-extrabold bg-blue-500 hover:bg-blue-500"
           >
             Add Space
           </button>
