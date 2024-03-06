@@ -3,6 +3,7 @@ import "./HeroSection.css";
 import bgHero from "../../../assets/designs/loadmatch/6210040.jpg";
 import ContentWrapper from "../../../components/ContentWrapper/ContentWrapper";
 import SearchButton from "../../../components/SmallComponents/Buttons/SearchButton";
+import SearchForm from "./SearchSection/SearchForm";
 function HeroSection() {
   const [search, setSearch] = React.useState("");
   const handleSearch = (e) => {
@@ -23,6 +24,7 @@ function HeroSection() {
             Enjoy Faster Enquires, Regular Loads traffic and availability of
             people to discover Space. <br></br>Explore now.
           </span>
+          {/* <SearchForm /> */}
           <div className="searchInput ">
             <input
               type="text"
