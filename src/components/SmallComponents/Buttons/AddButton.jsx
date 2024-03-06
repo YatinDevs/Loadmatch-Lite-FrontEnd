@@ -7,7 +7,7 @@ const AddButton = ({ type, label, className, handleSubmit }) => {
       className={`${className} uppercase transition-all `}
       onClick={handleSubmit}
     >
-      Add {label}
+      {label}
     </button>
   );
 };

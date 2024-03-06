@@ -1,46 +1,45 @@
 import React from "react";
 import "./HeroSection.css";
-import bgHero from "../../../assets/designs/loadmatch/6210040.jpg";
+import bgHero from "../../../assets/designs/loadmatch/home/herobanner.png";
 import ContentWrapper from "../../../components/ContentWrapper/ContentWrapper";
 import SearchButton from "../../../components/SmallComponents/Buttons/SearchButton";
 import SearchForm from "./SearchSection/SearchForm";
+import SearchSection from "./SearchSection/SearchSection";
+import AddButton from "../../../components/SmallComponents/Buttons/AddButton";
 function HeroSection() {
   const [search, setSearch] = React.useState("");
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
   return (
-    <div className="heroBanner">
+    <div className="heroBanner relative">
       <div className="backdrop-img">
-        <img src={bgHero} alt="background" className="w-full h-full" />
+        <img
+          src={bgHero}
+          alt="background"
+          className=" w-full object-cover h-full scale-150"
+        />
       </div>
 
       <div className="opacity-layer"></div>
 
       <ContentWrapper>
         <div className="heroBannerContent">
-          <span className="title">Explore LoadMatch</span>
-          <span className="subTitle">
-            Enjoy Faster Enquires, Regular Loads traffic and availability of
-            people to discover Space. <br></br>Explore now.
+          <span className="text-[25px] font-bold  text-center p-2">
+            Experience India's Finest Loads and Lorries!{" "}
           </span>
-          {/* <SearchForm /> */}
-          <div className="searchInput ">
-            <input
-              type="text"
-              placeholder="   Search for Loads or Space..."
-              onChange={handleSearch}
-              value={search}
-              className="text-black "
+
+          {/* <div className="flex gap-2">
+            <AddButton
+              label={"Add Loads"}
+              className="bg-blue-900 px-8 p-2 rounded-2xl hover:bg-blue-800"
             />
-            <SearchButton
-              label={"Search"}
-              type="submit"
-              className=" p-2 md:p-4 text-base md:text-lg font-semibold rounded-r-3xl
-        text-white bg-blue-500
-        hover:bg-blue-600 "
-            ></SearchButton>
-          </div>
+            <AddButton
+              label={"Add Lorry"}
+              className="bg-blue-900 px-8 p-2 rounded-2xl hover:bg-blue-800 "
+            />
+          </div> */}
+          <SearchSection className="absolute top-32 left-2 z-[2] md:w-full w-[90%] rounded-xl shadow-lg  " />
         </div>
       </ContentWrapper>
     </div>

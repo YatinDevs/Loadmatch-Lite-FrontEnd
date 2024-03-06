@@ -15,7 +15,7 @@ function HighPriorityLoads() {
     });
   }, [type]);
   return (
-    <section className="w-full relative mx-auto bg-white shadow-even  p-2 flex flex-col md:w-[86%] md:p-8 text-center">
+    <section className="w-full relative mx-auto bg-white shadow-even  p-2 flex flex-col md:w-[86%] md:p-8 text-center mt-40 md:mt-8">
       <p className="font-bold md:text-2xl text-[rgb(20, 24, 35)]">
         High Priority Loads
       </p>

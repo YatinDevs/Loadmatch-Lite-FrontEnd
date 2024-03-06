@@ -1,6 +1,14 @@
 import React from "react";
 
-const RadioInput = ({ checked, id, name, label, className, labelClass }) => {
+const RadioInput = ({
+  checked,
+  id,
+  name,
+  label,
+  className,
+  labelClass,
+  onChange,
+}) => {
   return (
     <div
       className={`w-fit flex gap-2 items-center cursor-pointer text-[rgb(34,118,227)]  px-4 py-2 rounded-[100px] bg-blue-100 ${className}`}
@@ -11,6 +19,7 @@ const RadioInput = ({ checked, id, name, label, className, labelClass }) => {
         checked={checked}
         className="scale-125 cursor-pointer"
         name={name}
+        onChange={onChange}
       />
       <label
         htmlFor={id}

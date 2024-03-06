@@ -30,7 +30,8 @@ function Header() {
         </div>
         <div className="flex gap-2">
           <Trips />
-          {isMobile ? <Hamburger /> : <Profile />}
+          {/* {isMobile ? <Hamburger /> : <Profile />} */}
+          <Profile />
         </div>
       </div>
     </header>

@@ -1,69 +1,76 @@
-import dayjs from "dayjs";
-import React, { useReducer, useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-  DatePicker,
-  InputField,
-  RadioInput,
-  SearchButton,
-  SwapButton,
-  TravellersCount,
-} from "./components";
+import React, { useState } from "react";
+import RadioInput from "./components/RadioInput.jsx/RadioInput";
+import SwapButton from "./components/Buttons/SwapButton";
+import InputFieldSearch from "./components/InputFieldSearch/InputFieldSearch";
+import SearchButton from "./components/Buttons/SearchButton";
+import useLoadStore from "../../../../store/useLoadStore";
+import useSpaceStore from "../../../../store/useSpaceStore";
 
-const SearchForm = () => {
-  const [inputSourceValue, setInputSourceValue] = useState("");
-  const [inputDestValue, setInputDestValue] = useState("");
-  const [searchLoad, setSearchLoad] = useState("");
-  const [searchSpace, setSearchSpace] = useState("");
-  // console.log(navigate);
+function SearchForm() {
+  const [searchType, setSearchType] = useState("loads");
+
+  const handleSearchTypeChange = (value) => {
+    setSearchType(value);
+  };
+
+  const handleSearch = async () => {
+    try {
+      const useStore = searchType === "loads" ? useLoadStore : useSpaceStore;
+      const data = await useStore.getState().getSearchListings({
+        from_city: document.getElementById("from_city").value,
+        to_city: document.getElementById("to_city").value,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="w-full relative bg-white shadow-2xl rounded-2xl p-4 flex flex-col md:w-11/12 md:p-8"
-    >
-      <RadioInput
-        label={"searchLoad"}
-        value={searchLoad}
-        name="enquiry_type"
-        id={"searchLoad"}
-      />
-
-      <div className="inputSection flex flex-col gap-1 w-full m-4 mx-auto py-2 md:flex-row md:items-center  ">
-        <div className="flex flex-col md:flex-row ">
-          <InputField
-            className=""
-            label="From"
-            placeholder="Enter city or airport"
-            id="source_location"
-          />
-          <SwapButton className="self-center swap-button flex items-center justify-center bg-white cursor-pointer  z-[1] rounded-xl border shadow-md w-9 h-9 m-[-20px] " />
-          <InputField
-            className=""
-            label="To"
-            placeholder="Enter city or airport"
-            id="destination_location"
-          />
-        </div>
-        <DatePicker
-          className=""
-          label="Departure"
-          placeholder="Enter date of journey"
-          id="date_of_journey"
-          min={dayjs(Date.now()).format("YYYY-MM-DD")}
+    <form className="w-full relative opacity-100 bg-white rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col gap-4">
+      <div className="ml-2 flex gap-2">
+        <RadioInput
+          label="loads"
+          name="searchType"
+          value="loads"
+          onChange={() => handleSearchTypeChange("loads")}
+          checked={searchType === "loads"}
         />
-
-        <TravellersCount />
+        <RadioInput
+          label="space"
+          name="searchType"
+          value="spaces"
+          onChange={() => handleSearchTypeChange("spaces")}
+          checked={searchType === "spaces"}
+        />
       </div>
-
-      <SearchButton
-        type={"flights"}
-        className="px-12 py-4 rounded-full text-base md:text-lg font-semibold text-white bg-orange-500 w-fit self-center absolute bottom-[-25px] hover:bg-orange-600 "
-      />
+      <div className="flex flex-col gap-1 ">
+        <InputFieldSearch
+          label="From City"
+          placeholder="Current location"
+          id="from_city"
+          type="text"
+          className=""
+        />
+        <SwapButton className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-25px]" />
+        <InputFieldSearch
+          label="To City"
+          placeholder="Destination"
+          id="to_city"
+          type="text"
+          name="to_city"
+          className=""
+        />
+        <SearchButton
+          type={searchType}
+          onClick={handleSearch}
+          className="px-12 py-4 rounded-full text-base md:text-lg font-semibold text-white bg-orange-500 w-fit self-center absolute bottom-[-25px] hover:bg-orange-600"
+        >
+          Search {searchType}
+        </SearchButton>
+      </div>
     </form>
   );
-};
+}
 
 export default SearchForm;

@@ -228,7 +228,7 @@ function AddSpace() {
           </div>
         </div>
         <AddButton
-          label={"Space"}
+          label={"Add Space"}
           type="submit"
           onClick={handleSubmit}
           className="px-12 py-4 rounded-full text-base md:text-lg font-semibold

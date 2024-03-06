@@ -234,7 +234,7 @@ function AddLoad() {
           </div>
         </div>
         <AddButton
-          label={"Load"}
+          label={"Add Load"}
           type="submit"
           onClick={handleSubmit}
           className="px-12 py-4 rounded-full text-base md:text-lg font-semibold
