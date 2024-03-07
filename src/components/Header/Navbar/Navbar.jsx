@@ -36,7 +36,7 @@ function Navbar() {
           <FaHouseChimney className="inline-block w-5 h-5 rounded-xl" />
           <span>Home</span>
         </NavLink>
-        <NavLink to={"/add-load"} className="nav-item">
+        <NavLink to={"/loads"} className="nav-item">
           <img
             className="inline-block w-5 h-5  rounded-xl mix-blend-multiply"
             src={loadsLogo}
@@ -49,7 +49,7 @@ function Navbar() {
             <span>Post</span>
           </div>
         )}
-        <NavLink to={"/add-space"} className="nav-item">
+        <NavLink to={"/spaces"} className="nav-item">
           <img className="inline-block w-5 h-5  rounded-xl" src={spaceLogo} />
           <span>Space</span>
         </NavLink>

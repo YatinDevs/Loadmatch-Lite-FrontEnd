@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputFieldSearch from "./components/InputFieldSearch/InputFieldSearch";
 import SearchButton from "../../../../components/SmallComponents/Buttons/SearchButton";
 import { useNavigate } from "react-router-dom";
-import SwapButton from "../../../../components/SmallComponents/Buttons/SwapButton";
+import SwapButton from "./components/Buttons/SwapButton.jsx";
 import loadApi from "../../../../services/loadApi.js";
 import spaceApi from "../../../../services/spaceApi.js";
 
@@ -29,26 +29,15 @@ function SearchForm() {
     try {
       if (searchType === "loads") {
         const encodedPath = btoa(`${fromCity}-${toCity}`);
-        navigate(`/loads/info-${encodedPath}`);
         console.log("From City:", fromCity);
         console.log("To City:", toCity);
-        const resData = await loadApi.getSearchListings({
-          from_city: fromCity,
-          to_city: toCity,
-        });
-        console.log("responseData", resData);
 
-        navigate(`/search-results?type=loads`);
+        navigate(`/loads/info-${encodedPath}`);
       } else {
-        const encodedPath = btoa(`${fromCity}--${toCity}`);
+        const encodedPath = btoa(`${fromCity}-${toCity}`);
+        console.log("From City:", fromCity);
+        console.log("To City:", toCity);
         navigate(`/spaces/info-${encodedPath}`);
-        const resData = await spaceApi.getSearchListings({
-          from_city: fromCity,
-          to_city: toCity,
-        });
-        console.log(resData);
-
-        navigate(`/search-results?type=spaces`);
       }
     } catch (error) {
       console.error("Error fetching search listings:", error);

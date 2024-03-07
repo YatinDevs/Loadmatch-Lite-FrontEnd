@@ -12,6 +12,7 @@ import Load from "./pages/Load/Load";
 import Space from "./pages/Space/Space";
 import LoadsSearchList from "./pages/Load/LoadsSearchList/LoadsSearchList";
 import SpaceSearchList from "./pages/Space/SpaceSearchList/SpaceSearchList";
+import LoadSearchList from "./pages/Load/LoadsSearchList/LoadsSearchList";
 
 function App() {
   const router = createBrowserRouter(
@@ -22,6 +23,8 @@ function App() {
         <Route path="/spaces/:searchQuery" element={<SpaceSearchList />} />
         <Route path="/add-load" element={<Load />} />
         <Route path="/add-space" element={<Space />} />
+        <Route path="/loads" element={<LoadSearchList />} />
+        <Route path="/spaces" element={<SpaceSearchList />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     )

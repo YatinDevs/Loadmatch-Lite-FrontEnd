@@ -1,32 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Pagination } from "antd";
+import loadApi from "../../../services/loadApi";
+import LoadCard from "./LoadCard";
 
-function LoadsSearchList() {
+function LoadSearchList() {
   const { searchQuery } = useParams();
-  // Destructure and decode the searchQuery path
-  const { source, dest } = decodeSearchQuery(searchQuery);
+  const [loads, setLoads] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  console.log(loads);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const extractedEncodedPath = searchQuery.replace("info-", "");
+
+        const decodedPath = atob(extractedEncodedPath);
+
+        const [fromCity, toCity] = decodedPath.split("-");
+
+        const resData = await loadApi.getSearchListings({
+          from_city: fromCity,
+          to_city: toCity,
+          page: currentPage,
+          pageSize: pageSize,
+        });
+        setLoads(resData.loads);
+
+        setTotal(resData.length);
+      } catch (error) {
+        console.error("Error fetching search listings:", error);
+      }
+    };
+
+    fetchData();
+  }, [searchQuery, currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
-    <div className="h-[200px]">
-      <h2>Loads Search List</h2>
-      <p>Source: {source}</p>
-      <p>Destination: {dest}</p>
+    <div className="mx-auto w-full ">
+      <div>
+        {loads?.map((load) => (
+          <LoadCard key={load.load_id} {...load} />
+        ))}
+      </div>
+
+      <div className="flex justify-center mt-4">
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={total}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      </div>
     </div>
   );
 }
 
-export default LoadsSearchList;
-
-function decodeSearchQuery(searchQuery) {
-  // Check if searchQuery is null or undefined
-  if (!searchQuery) return { source: "", dest: "" };
-
-  // Remove "info-" from the searchQuery
-  const extractedEncodedPath = searchQuery.replace("info-", "");
-  // Decode the URI component
-  const decodedPath = decodeURIComponent(extractedEncodedPath);
-  // Split the decoded path to get source and destination
-  const [source, dest] = decodedPath.split("--");
-
-  return { source, dest };
-}
+export default LoadSearchList;
