@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from "react";
 import spaceApi from "../../../services/spaceApi";
+import { Pagination } from "antd";
 
 function SpaceListingDisplay() {
   const [spaces, setSpaces] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalSpaces, setTotalSpaces] = useState(0);
+  const spacesPerPage = 10; // Adjust this value as needed
 
   useEffect(() => {
-    async function fetchSpaces() {
-      try {
-        const data = await spaceApi.getAllListings();
-        setSpaces(data);
-      } catch (error) {
-        console.error("Error fetching spaces:", error.message);
-      }
-    }
-
     fetchSpaces();
-  }, []);
+  }, [currentPage]);
+
+  async function fetchSpaces() {
+    try {
+      const offset = (currentPage - 1) * spacesPerPage;
+      const data = await spaceApi.getPaginatedListings(offset, spacesPerPage);
+      setSpaces(data.spaces);
+      setTotalSpaces(data.total);
+    } catch (error) {
+      console.error("Error fetching spaces:", error.message);
+    }
+  }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="max-w-screen-md mx-auto p-6">
@@ -46,6 +56,13 @@ function SpaceListingDisplay() {
           </div>
         ))}
       </div>
+      <Pagination
+        className="my-4 flex items-center justify-center"
+        current={currentPage}
+        total={totalSpaces}
+        pageSize={spacesPerPage}
+        onChange={handlePageChange}
+      />
     </div>
   );
 }

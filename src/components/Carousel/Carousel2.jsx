@@ -45,18 +45,16 @@ function Carousel2({ data, loading, endpoint, title }) {
           className="carouselRightNav arrow text-2xl text-black bg-white p-4 w-14 h-14 rounded-full absolute -translate-y-2/4 cursor-pointer z-[2] hidden top-[60%] md:block transition-all hover:scale-110 right-6 shadow-even"
           onClick={() => navigation("right")}
         />
-        <h1 className="text-left text-xl font-bold pb-[10px] ">
-          
-        </h1>
+        <h1 className="text-left text-xl font-bold pb-[10px] "></h1>
         {!loading ? (
           <div
             className="carouselItems flex gap-2.5 sm:gap-5 py-[10px] mx-auto overflow-x-scroll overflow-y-hidden "
             ref={carouselContainer}
           >
-            {data?.map((details) => {
+            {data?.map((details, index) => {
               return (
                 <div
-                  key={details.img}
+                  key={index}
                   className="w-[270px] h-[100px] shrink-0 border-none max-md:w-[270px] max-md:h-[100px] bg-red-200 rounded-2xl"
                 >
                   <div>

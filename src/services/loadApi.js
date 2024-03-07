@@ -22,7 +22,9 @@ const loadApi = {
   },
   getSearchListings: async (data) => {
     try {
+      console.log("in getSearchListingsService", data);
       const response = await axios.post(`${API_URL}/loads/search`, data);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       throw new Error("Failed to search for loads");

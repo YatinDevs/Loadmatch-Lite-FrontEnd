@@ -1,103 +1,129 @@
 import React, { useState } from "react";
-import RadioInput from "./components/RadioInput.jsx/RadioInput";
-import SwapButton from "./components/Buttons/SwapButton";
 import InputFieldSearch from "./components/InputFieldSearch/InputFieldSearch";
-import SearchButton from "./components/Buttons/SearchButton";
-import useLoadStore from "../../../../store/useLoadStore";
-import useSpaceStore from "../../../../store/useSpaceStore";
-import useJourneyStore from "../../../../store/useJourneyStore";
-import { useLocation, useNavigate } from "react-router-dom";
+import SearchButton from "../../../../components/SmallComponents/Buttons/SearchButton";
+import { useNavigate } from "react-router-dom";
+import SwapButton from "../../../../components/SmallComponents/Buttons/SwapButton";
+import loadApi from "../../../../services/loadApi.js";
+import spaceApi from "../../../../services/spaceApi.js";
+
 function SearchForm() {
   const [searchType, setSearchType] = useState("loads");
-
-  const {
-    inputSourceValue,
-    inputDestValue,
-    setInputSourceValue,
-    setInputDestValue,
-    swapLocation,
-  } = useJourneyStore();
-
-  // console.log("from :", inputSourceValue, "dest :", inputDestValue);
+  const [fromCity, setFromCity] = useState("");
+  const [toCity, setToCity] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchTypeChange = (value) => {
-    // console.log(value);
     setSearchType(value);
   };
 
-  const pathname = useLocation().pathname;
-  // console.log(pathname);
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
+  const handleSwapCities = (e) => {
     e.preventDefault();
+    const temp = fromCity;
+    setFromCity(toCity);
+    setToCity(temp);
+  };
 
-    console.log(inputSourceValue, inputDestValue);
-    const encodedPath = btoa(`${inputSourceValue}-${inputDestValue}`);
-    console.log(encodedPath);
-    if (searchType === "loads") {
-      navigate(`loads/info-${inputSourceValue}`);
-    } else {
-      navigate(`spaces/info-${encodedPath}`);
+  const handleSearch = async () => {
+    console.log("Search Type:", searchType);
+
+    try {
+      if (searchType === "loads") {
+        const encodedPath = btoa(`${fromCity}-${toCity}`);
+        navigate(`/loads/info-${encodedPath}`);
+        console.log("From City:", fromCity);
+        console.log("To City:", toCity);
+        const resData = await loadApi.getSearchListings({
+          from_city: fromCity,
+          to_city: toCity,
+        });
+        console.log("responseData", resData);
+
+        navigate(`/search-results?type=loads`);
+      } else {
+        const encodedPath = btoa(`${fromCity}--${toCity}`);
+        navigate(`/spaces/info-${encodedPath}`);
+        const resData = await spaceApi.getSearchListings({
+          from_city: fromCity,
+          to_city: toCity,
+        });
+        console.log(resData);
+
+        navigate(`/search-results?type=spaces`);
+      }
+    } catch (error) {
+      console.error("Error fetching search listings:", error);
+      // Handle errors here
     }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="w-full relative opacity-100 bg-white rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSearch();
+      }}
+      className="w-full relative opacity-100 shadow-2xl text-black rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col "
     >
-      <div className="ml-2 flex gap-2">
-        <RadioInput
-          label="loads"
-          name="searchType"
-          value="loads"
-          onChange={() => handleSearchTypeChange("loads")}
-          checked={searchType === "loads"}
-        />
-        <RadioInput
-          label="space"
-          name="searchType"
-          value="spaces"
-          onChange={() => handleSearchTypeChange("spaces")}
-          checked={searchType === "spaces"}
-        />
+      <div className="ml-2 flex ">
+        <label
+          className="px-4 text-white  rounded-2xl mb-2 py-1"
+          htmlFor="searchTypeLoads"
+        >
+          <input
+            type="radio"
+            id="searchTypeLoads"
+            name="searchType"
+            value="loads"
+            checked={searchType === "loads"}
+            onChange={() => handleSearchTypeChange("loads")}
+          />{" "}
+          Loads
+        </label>
+
+        <label
+          className="px-4 text-white rounded-2xl mb-2 py-1"
+          htmlFor="searchTypeSpaces"
+        >
+          <input
+            type="radio"
+            id="searchTypeSpaces"
+            name="searchType"
+            value="spaces"
+            checked={searchType === "spaces"}
+            onChange={() => handleSearchTypeChange("spaces")}
+          />{" "}
+          Spaces
+        </label>
       </div>
-      <div className="flex flex-col gap-1 ">
+      <div className="flex flex-col  ">
         <InputFieldSearch
           label="From City"
-          placeholder="Current location"
-          id="from_city"
+          placeholder="Enter From City"
+          id="fromCity"
           type="text"
-          className=""
+          value={fromCity}
+          onChange={(e) => setFromCity(e.target.value)}
+          handleCitySelect={(city) => setFromCity(city)}
+          className="mr-4"
         />
-
         <SwapButton
-          handleSwap={(e) => {
-            e.preventDefault();
-            const temp = inputDestValue;
-            setInputDestValue(inputSourceValue);
-            setInputSourceValue(temp);
-            swapLocation();
-          }}
-          className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-25px]"
+          handleSwap={handleSwapCities}
+          className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-22px]"
         />
         <InputFieldSearch
           label="To City"
-          placeholder="Destination"
-          id="to_city"
+          placeholder="Enter To City"
+          id="toCity"
           type="text"
-          name="to_city"
-          className="mb-4"
-          value={inputDestValue}
-          onChange={(e) => setInputDestValue(e.target.value)}
+          value={toCity}
+          onChange={(e) => setToCity(e.target.value)}
+          handleCitySelect={(city) => setToCity(city)}
+          className="mr-4 mb-2"
         />
         <SearchButton
           type="submit"
           label={`Search ${searchType}`}
           className="px-12 py-4  rounded-full text-base md:text-lg font-semibold text-white bg-green-500 w-fit self-center absolute bottom-[-25px] hover:bg-green-600"
-          onClick={handleSubmit}
         ></SearchButton>
       </div>
     </form>

@@ -83,7 +83,7 @@ function AddSpace() {
   return (
     <ContentWrapper className="mt-5">
       <h1
-        className=" mt-24 text-center font-bold text-black leading-7 text-[20px] md:text-[22px] "
+        className="  mt-15 text-center font-bold text-black leading-7 text-[20px] md:text-[22px] "
         style={{ textShadow: "rgba(0, 0, 0, 0.25)" }}
       >
         Explore Space and Add Space Here!

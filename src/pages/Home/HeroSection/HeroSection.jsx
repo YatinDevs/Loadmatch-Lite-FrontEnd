@@ -39,10 +39,11 @@ function HeroSection() {
             />
             <AddButton
               label={"Add Lorry"}
+              className="absolute top-10 left-2 z-[2] md:w-full w-[90%] rounded-xl shadow-lg  "
               className="bg-blue-900 px-8 p-2 rounded-2xl hover:bg-blue-800 "
             />
           </div> */}
-          <SearchSection className="absolute top-10 left-2 z-[2] md:w-full w-[90%] rounded-xl shadow-lg  " />
+          <SearchSection />
         </div>
       </ContentWrapper>
     </div>

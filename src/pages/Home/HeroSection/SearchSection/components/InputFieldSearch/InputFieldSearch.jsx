@@ -21,10 +21,12 @@ const InputFieldSearch = ({
       handleCitySelect(location);
     }
   }
+
   const handleInput = (value) => {
     setInputValue(value);
     setShowSuggestion(value.trim().length > 0);
   };
+
   const formattedData = locations
     .map((location) => {
       const { state, districts } = location;
