@@ -1,13 +1,15 @@
-import React from 'react'
+import React from "react";
 
-const SearchButton = ({type, className,handleSubmit}) => {
+const SearchButton = ({ type, label, className, handleSubmit }) => {
   return (
-    <button className={`${className} uppercase transition-all `}
+    <button
+      type={type}
+      className={`${className} uppercase transition-all `}
       onClick={handleSubmit}
     >
-        SEARCH {type}
+      {label}
     </button>
-  )
-}
+  );
+};
 
-export default SearchButton
+export default SearchButton;

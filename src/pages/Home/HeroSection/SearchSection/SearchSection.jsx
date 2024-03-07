@@ -10,7 +10,7 @@ const SearchSection = ({ className }) => {
       >
         <h1
           className=" text-center font-medium text-white leading-7 text-[18px] md:text-[22px] "
-          style={{ textShadow: "rgba(0, 0, 0, 0.25)" }}
+          style={{ textShadow: "1px 1px 2px rgba(0, 0, 0,1)" }}
         >
           Explore Loads and Lorries Now
         </h1>

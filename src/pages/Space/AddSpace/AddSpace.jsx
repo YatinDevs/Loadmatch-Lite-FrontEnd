@@ -82,9 +82,15 @@ function AddSpace() {
 
   return (
     <ContentWrapper className="mt-5">
+      <h1
+        className=" mt-24 text-center font-bold text-black leading-7 text-[20px] md:text-[22px] "
+        style={{ textShadow: "rgba(0, 0, 0, 0.25)" }}
+      >
+        Explore Space and Add Space Here!
+      </h1>
       <form
         onSubmit={handleSubmit}
-        className="w-full mx-auto relative bg-white opacity-90 md:opacity-95  shadow-md rounded-2xl p-4 py-8 flex flex-col md:w-11/12 md:p-8"
+        className="w-full mx-auto  mt-2 relative bg-white opacity-90 md:opacity-95 shadow-md rounded-2xl p-4 py-8 flex flex-col md:w-11/12 md:p-8"
       >
         <div className="flex flex-col md:flex-row gap-2">
           <div className="flex items-center md:gap-2 flex-col md:flex-row  ">
@@ -232,8 +238,8 @@ function AddSpace() {
           type="submit"
           onClick={handleSubmit}
           className="px-12 py-4 rounded-full text-base md:text-lg font-semibold
-        text-white bg-blue-500 w-fit self-center absolute bottom-[-25px]
-        hover:bg-blue-600 "
+        text-white bg-orange-500 w-fit self-center absolute bottom-[-25px]
+        hover:bg-orange-600 "
         ></AddButton>
       </form>
     </ContentWrapper>

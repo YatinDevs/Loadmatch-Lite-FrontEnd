@@ -5,29 +5,49 @@ import InputFieldSearch from "./components/InputFieldSearch/InputFieldSearch";
 import SearchButton from "./components/Buttons/SearchButton";
 import useLoadStore from "../../../../store/useLoadStore";
 import useSpaceStore from "../../../../store/useSpaceStore";
-
+import useJourneyStore from "../../../../store/useJourneyStore";
+import { useLocation, useNavigate } from "react-router-dom";
 function SearchForm() {
   const [searchType, setSearchType] = useState("loads");
 
+  const {
+    inputSourceValue,
+    inputDestValue,
+    setInputSourceValue,
+    setInputDestValue,
+    swapLocation,
+  } = useJourneyStore();
+
+  // console.log("from :", inputSourceValue, "dest :", inputDestValue);
+
   const handleSearchTypeChange = (value) => {
+    // console.log(value);
     setSearchType(value);
   };
 
-  const handleSearch = async () => {
-    try {
-      const useStore = searchType === "loads" ? useLoadStore : useSpaceStore;
-      const data = await useStore.getState().getSearchListings({
-        from_city: document.getElementById("from_city").value,
-        to_city: document.getElementById("to_city").value,
-      });
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+  const pathname = useLocation().pathname;
+  // console.log(pathname);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(inputSourceValue, inputDestValue);
+    const encodedPath = btoa(`${inputSourceValue}-${inputDestValue}`);
+    console.log(encodedPath);
+    if (searchType === "loads") {
+      navigate(`loads/info-${inputSourceValue}`);
+    } else {
+      navigate(`spaces/info-${encodedPath}`);
     }
   };
 
   return (
-    <form className="w-full relative opacity-100 bg-white rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="w-full relative opacity-100 bg-white rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col gap-4"
+    >
       <div className="ml-2 flex gap-2">
         <RadioInput
           label="loads"
@@ -52,22 +72,33 @@ function SearchForm() {
           type="text"
           className=""
         />
-        <SwapButton className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-25px]" />
+
+        <SwapButton
+          handleSwap={(e) => {
+            e.preventDefault();
+            const temp = inputDestValue;
+            setInputDestValue(inputSourceValue);
+            setInputSourceValue(temp);
+            swapLocation();
+          }}
+          className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-25px]"
+        />
         <InputFieldSearch
           label="To City"
           placeholder="Destination"
           id="to_city"
           type="text"
           name="to_city"
-          className=""
+          className="mb-4"
+          value={inputDestValue}
+          onChange={(e) => setInputDestValue(e.target.value)}
         />
         <SearchButton
-          type={searchType}
-          onClick={handleSearch}
-          className="px-12 py-4 rounded-full text-base md:text-lg font-semibold text-white bg-orange-500 w-fit self-center absolute bottom-[-25px] hover:bg-orange-600"
-        >
-          Search {searchType}
-        </SearchButton>
+          type="submit"
+          label={`Search ${searchType}`}
+          className="px-12 py-4  rounded-full text-base md:text-lg font-semibold text-white bg-green-500 w-fit self-center absolute bottom-[-25px] hover:bg-green-600"
+          onClick={handleSubmit}
+        ></SearchButton>
       </div>
     </form>
   );

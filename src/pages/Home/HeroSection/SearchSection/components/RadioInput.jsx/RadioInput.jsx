@@ -11,7 +11,7 @@ const RadioInput = ({
 }) => {
   return (
     <div
-      className={`w-fit flex gap-2 items-center cursor-pointer text-[rgb(34,118,227)]  px-4 py-2 rounded-[100px] bg-blue-100 ${className}`}
+      className={`w-fit flex gap-2 items-center cursor-pointer text-black  px-4 py-2 rounded-[100px] bg-green-100 ${className}`}
     >
       <input
         type="radio"
