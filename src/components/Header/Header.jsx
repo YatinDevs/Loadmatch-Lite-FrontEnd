@@ -22,7 +22,7 @@ function Header() {
   }, []);
 
   return (
-    <header className="w-full fixed min-h-[8dvh] h-16 top-0 bg-white shadow-lg z-10">
+    <header className="w-full sticky min-h-[8dvh] h-16 top-0 bg-white shadow-lg z-10">
       <div className="w-full max-w-[1280px] mx-auto h-full flex items-center px-[10px] justify-between max-sm:px-1">
         <div className="flex items-center h-full">
           <Logo />
