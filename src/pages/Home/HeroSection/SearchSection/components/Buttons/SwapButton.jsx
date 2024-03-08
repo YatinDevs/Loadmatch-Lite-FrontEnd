@@ -2,7 +2,12 @@ import React from "react";
 
 const SwapButton = ({ className, handleSwap }) => {
   return (
-    <button onClick={handleSwap} className={className}>
+    <button
+      onClick={() => {
+        handleSwap();
+      }}
+      className={className}
+    >
       <svg
         width="20"
         height="15"

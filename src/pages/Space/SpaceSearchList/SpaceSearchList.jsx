@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "antd";
 import spaceApi from "../../../services/spaceApi";
 import SpaceCard from "./SpaceCard";
+import SearchSection from "../../Home/HeroSection/SearchSection/SearchSection";
 
 function SpaceSearchList() {
   const { searchQuery } = useParams();
@@ -40,6 +41,7 @@ function SpaceSearchList() {
 
   return (
     <div className="mx-auto w-full">
+      <SearchSection />
       <div>
         {spaces?.map((space) => (
           <SpaceCard key={space.space_id} {...space} />

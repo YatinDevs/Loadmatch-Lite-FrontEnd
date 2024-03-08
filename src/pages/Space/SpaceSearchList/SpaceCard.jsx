@@ -43,14 +43,10 @@ const SpaceCard = ({
           <div className="time font-semibold">Weight: {weight}</div>
         </div>
 
-        <div className="font-semibold basis-[30%] text-center flex items-center justify-center flex-wrap md:gap-4">
-          {/* You can add more details or actions here */}
-        </div>
+        <div className="font-semibold basis-[30%] text-center flex items-center justify-center flex-wrap md:gap-4"></div>
       </div>
 
-      <div className="font-medium text-center text-xs text-blue-600 cursor-pointer select-none transition-all">
-        {/* You can add show/hide details button here if needed */}
-      </div>
+      <div className="font-medium text-center text-xs text-blue-600 cursor-pointer select-none transition-all"></div>
     </article>
   );
 };

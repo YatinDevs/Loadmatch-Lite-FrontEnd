@@ -16,14 +16,7 @@ function SearchForm() {
     setSearchType(value);
   };
 
-  const handleSwapCities = (e) => {
-    e.preventDefault();
-    const temp = fromCity;
-    setFromCity(toCity);
-    setToCity(temp);
-  };
-
-  const handleSearch = async () => {
+  const handleSubmit = async () => {
     console.log("Search Type:", searchType);
 
     try {
@@ -45,11 +38,16 @@ function SearchForm() {
     }
   };
 
+  const handleSwap = () => {
+    const temp = fromCity;
+    setFromCity(toCity);
+    setToCity(temp);
+  };
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        handleSearch();
       }}
       className="w-full relative opacity-100 shadow-2xl text-black rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col "
     >
@@ -96,9 +94,10 @@ function SearchForm() {
           className="mr-4"
         />
         <SwapButton
-          handleSwap={handleSwapCities}
+          handleSwap={handleSwap}
           className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-22px]"
         />
+
         <InputFieldSearch
           label="To City"
           placeholder="Enter To City"
@@ -110,6 +109,7 @@ function SearchForm() {
           className="mr-4 mb-2"
         />
         <SearchButton
+          handleSubmit={handleSubmit}
           type="submit"
           label={`Search ${searchType}`}
           className="px-12 py-4  rounded-full text-base md:text-lg font-semibold text-white bg-green-500 w-fit self-center absolute bottom-[-25px] hover:bg-green-600"

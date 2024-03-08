@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "antd";
 import loadApi from "../../../services/loadApi";
 import LoadCard from "./LoadCard";
+import SearchSection from "../../Home/HeroSection/SearchSection/SearchSection";
 
 function LoadSearchList() {
   const { searchQuery } = useParams();
@@ -44,6 +45,7 @@ function LoadSearchList() {
 
   return (
     <div className="mx-auto w-full ">
+      <SearchSection />
       <div>
         {loads?.map((load) => (
           <LoadCard key={load.load_id} {...load} />
