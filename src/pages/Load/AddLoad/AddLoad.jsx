@@ -4,6 +4,7 @@ import Inputbox from "../../../components/SmallComponents/BasicInputBox/Inputbox
 import AddButton from "../../../components/SmallComponents/Buttons/AddButton";
 import useLoadStore from "../../../store/useLoadStore.js";
 import ContentWrapper from "../../../components/ContentWrapper/ContentWrapper.jsx";
+import ImageUpload from "./ImageUpload.jsx";
 
 function AddLoad() {
   const [formData, setFormData] = useState({
@@ -86,168 +87,139 @@ function AddLoad() {
   } = formData;
 
   return (
-    <ContentWrapper className="mt-5">
+    <ContentWrapper className="my-5">
       <h1
         className=" mt-15 text-center font-bold text-black leading-7 text-[20px] md:text-[22px] "
         style={{ textShadow: "rgba(0, 0, 0, 0.25)" }}
       >
         Explore Loads and Add Loads Here!
       </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="w-full mx-auto  mt-2 relative bg-white opacity-90 md:opacity-95 shadow-md rounded-2xl p-4 py-8 flex flex-col md:w-11/12 md:p-8"
-      >
-        <div className="flex flex-col md:flex-row gap-2">
-          <div className="flex items-center md:gap-2 flex-col md:flex-row  ">
-            <InputField
-              label="From City"
-              placeholder="Enter from city"
-              id="from_city"
-              type="text"
-              value={from_city}
-              onChange={(value) =>
-                handleChange({ target: { name: "from_city", value } })
-              }
-              className=" flex-1 w-full"
-              handleCitySelect={(city) => handleCitySelect(city, "from_city")}
-            />
-
-            <Inputbox
-              label="From PIN"
-              placeholder="Enter from PIN"
-              id="from_pin"
-              type="number"
-              value={from_pin}
-              name="from_pin"
-              onChange={handleChange}
-              className="flex-1 w-full"
-            />
-          </div>
-          <div className="flex items-center md:gap-2 flex-col md:flex-row ">
-            <InputField
-              label="To City"
-              placeholder="Enter to city"
-              id="to_city"
-              type="text"
-              value={to_city}
-              name="to_city"
-              onChange={handleChange}
-              className="flex-1 w-full"
-              handleCitySelect={(city) => handleCitySelect(city, "to_city")}
-            />
-
-            <Inputbox
-              label="To PIN"
-              placeholder="Enter to PIN"
-              id="to_pin"
-              type="number"
-              value={to_pin}
-              name="to_pin"
-              onChange={handleChange}
-              className="flex-1 w-full"
-            />
-          </div>
-        </div>
-        <div>
-          <Inputbox
-            label="Image Upload (.JPEG,.JPG,.PNG only)"
-            type="file"
-            id="imageFiles"
-            multiple
-            accept=".jpg, .jpeg, .png"
-            onChange={handleImageChange}
-            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          />
-          {/* Image previews */}
-          <div className="mt-2 flex flex-wrap">
-            {imagePreviews.map((preview, index) => (
-              <img
-                key={index}
-                src={preview}
-                alt={`Preview ${index}`}
-                className="w-20 h-20 object-cover m-1 rounded-md"
+      <div className="p-2">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full mx-auto  mt-2 relative bg-white  shadow-md rounded-2xl px-4 py-8 flex flex-col md:w-11/12 md:p-8"
+        >
+          <div className="flex flex-col md:flex-row gap-2 ">
+            <div className="flex items-center md:gap-2 flex-col md:flex-row  ">
+              <InputField
+                label="From City"
+                placeholder="Enter from city"
+                id="from_city"
+                type="text"
+                value={from_city}
+                onChange={(value) =>
+                  handleChange({ target: { name: "from_city", value } })
+                }
+                className=" flex-1 w-full"
+                handleCitySelect={(city) => handleCitySelect(city, "from_city")}
               />
-            ))}
-            {imagePreviews.length != 0 && (
-              <button
-                className=" w-20 h-20 object-cover m-1 rounded-md text-md  bg-gray-200 text-center flex justify-center items-center"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const fileInput = document.getElementById("imageFiles");
-                  fileInput.click();
-                }}
-              >
-                Add More
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="flex flex-row gap-2 ">
-            <Inputbox
-              label="Created By"
-              placeholder="Enter (userID)"
-              id="created_by"
-              type="number"
-              value={created_by}
-              name="created_by"
-              onChange={handleChange}
-              className="flex-1"
-            />
-            <Inputbox
-              label="Weight"
-              placeholder="in tonnes"
-              id="weight"
-              type="number"
-              value={weight}
-              name="weight"
-              onChange={handleChange}
-              className="flex-1"
-            />
-          </div>
-          <div className="flex flex-col md:flex-row md:gap-2">
-            <Inputbox
-              label="Width"
-              placeholder="in ft"
-              id="width"
-              type="number"
-              value={width}
-              name="width"
-              onChange={handleChange}
-              className=" flex-1"
-            />
 
-            <Inputbox
-              label="Height"
-              placeholder="in ft"
-              id="height"
-              type="number"
-              value={height}
-              name="height"
-              onChange={handleChange}
-              className=" flex-1"
-            />
-            <Inputbox
-              label="Length"
-              placeholder="in ft"
-              id="length"
-              type="number"
-              value={length}
-              name="length"
-              onChange={handleChange}
-              className=" flex-1"
-            />
+              <Inputbox
+                label="From PIN"
+                placeholder="Enter from PIN"
+                id="from_pin"
+                type="number"
+                value={from_pin}
+                name="from_pin"
+                onChange={handleChange}
+                className="flex-1 w-full"
+              />
+            </div>
+            <div className="flex items-center md:gap-2 flex-col md:flex-row ">
+              <InputField
+                label="To City"
+                placeholder="Enter to city"
+                id="to_city"
+                type="text"
+                value={to_city}
+                name="to_city"
+                onChange={handleChange}
+                className="flex-1 w-full"
+                handleCitySelect={(city) => handleCitySelect(city, "to_city")}
+              />
+
+              <Inputbox
+                label="To PIN"
+                placeholder="Enter to PIN"
+                id="to_pin"
+                type="number"
+                value={to_pin}
+                name="to_pin"
+                onChange={handleChange}
+                className="flex-1 w-full"
+              />
+            </div>
           </div>
-        </div>
-        <AddButton
-          label={"Add Load"}
-          type="submit"
-          onClick={handleSubmit}
-          className="px-12 py-4 rounded-full text-base md:text-lg font-semibold
+          <div>
+            <ImageUpload />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-2 ">
+              <Inputbox
+                label="Created By"
+                placeholder="Enter (userID)"
+                id="created_by"
+                type="number"
+                value={created_by}
+                name="created_by"
+                onChange={handleChange}
+                className="flex-1"
+              />
+              <Inputbox
+                label="Weight"
+                placeholder="in tonnes"
+                id="weight"
+                type="number"
+                value={weight}
+                name="weight"
+                onChange={handleChange}
+                className="flex-1"
+              />
+            </div>
+            <div className="flex flex-col md:flex-row md:gap-2">
+              <Inputbox
+                label="Width"
+                placeholder="in ft"
+                id="width"
+                type="number"
+                value={width}
+                name="width"
+                onChange={handleChange}
+                className=" flex-1"
+              />
+
+              <Inputbox
+                label="Height"
+                placeholder="in ft"
+                id="height"
+                type="number"
+                value={height}
+                name="height"
+                onChange={handleChange}
+                className=" flex-1"
+              />
+              <Inputbox
+                label="Length"
+                placeholder="in ft"
+                id="length"
+                type="number"
+                value={length}
+                name="length"
+                onChange={handleChange}
+                className=" flex-1"
+              />
+            </div>
+          </div>
+          <AddButton
+            label={"Add Load"}
+            type="submit"
+            onClick={handleSubmit}
+            className="px-12 py-4 rounded-full text-base md:text-lg font-semibold
         text-white bg-green-500 w-fit self-center absolute bottom-[-25px]
         hover:bg-green-600 "
-        ></AddButton>
-      </form>
+          ></AddButton>
+        </form>
+      </div>
     </ContentWrapper>
   );
 }

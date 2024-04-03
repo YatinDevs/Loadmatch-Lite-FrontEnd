@@ -10,6 +10,7 @@ const InputField = ({
   value,
   onChange,
   handleCitySelect,
+  error,
 }) => {
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -52,12 +53,14 @@ const InputField = ({
         autoComplete="off"
         value={inputValue}
         onChange={(e) => handleInput(e.target.value)}
-        className="w-full relative rounded-lg m-3 focus:outline-none  border-2 border-solid border-slate-200 hover:border-slate-500 focus:border-[rgb(34,118,227)] font-medium text-lg leading-7 text-[rgb(20, 24, 35)] py-3 px-4 md:py-5 md:px-4 "
+        className="w-full relative rounded-lg  focus:outline-none  border-2 border-solid border-slate-200 hover:border-slate-500 focus:border-[rgb(34,118,227)] font-medium text-lg leading-7 text-[rgb(20, 24, 35)] py-3 px-4 md:py-5 md:px-4 "
       />
 
       <label
         htmlFor={id}
-        className="absolute top-[2px] left-6 px-1 rounded bg-[#fff] text-[rgb(119,119,119)] font-medium leading-[18px] text-sm "
+        className={`absolute select-none top-[-5px] left-5 px-1 rounded bg-[#fff]  font-medium leading-[18px] text-sm ${
+          error ? "text-red-500" : "text-[rgb(119,119,119)]"
+        } `}
       >
         {label ? label : "Input"}
       </label>
