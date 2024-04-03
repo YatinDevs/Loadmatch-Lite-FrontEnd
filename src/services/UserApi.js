@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const API_URL =
-  import.meta.env.REACT_APP_API_URL || "http://64.227.153.199:3003/api/v1";
+  import.meta.env.VITE_APP_DOCKER_API_URL ||
+  import.meta.env.VITE_APP_LOCAL_API_URL;
+console.log(API_URL);
 
 const UserApi = {
   createListing: async (data) => {

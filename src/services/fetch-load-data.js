@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://64.227.153.199:3003/api/v1"; // Change URL according to your backend API
-
+const API_URL = process.env.REACT_APP_API_URL; // Change URL according to your backend API
+console.log(API_URL);
 export const fetchLoadDataFromAPI = async () => {
   try {
     const res = await axios.get(API_URL);
