@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3003/api/v1/loads"; // Change URL according to your backend API
+const API_URL = "http://64.227.153.199:3003/api/v1"; // Change URL according to your backend API
 
 export const fetchLoadDataFromAPI = async () => {
   try {

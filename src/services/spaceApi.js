@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const API_URL =
-  import.meta.env.REACT_APP_API_URL || "http://localhost:3003/api/v1";
+  import.meta.env.REACT_APP_API_URL || "http://64.227.153.199:3003/api/v1";
 
 const spaceApi = {
   createListing: async (data) => {

@@ -1,7 +1,7 @@
 import axios from "axios";
-
 const API_URL =
-  import.meta.env.REACT_APP_API_URL || "http://localhost:3003/api/v1";
+  import.meta.env.REACT_APP_API_URL || "http://64.227.153.199:3003/api/v1";
+console.log(API_URL);
 
 const loadApi = {
   createListing: async (data) => {
@@ -14,7 +14,9 @@ const loadApi = {
   },
   getAllListings: async () => {
     try {
-      const response = await axios.get(`${API_URL}/loads`);
+      const response = await axios.get(`${API_URL}/loads`, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       throw new Error("Failed to fetch loads");
@@ -23,7 +25,9 @@ const loadApi = {
   getSearchListings: async (data) => {
     try {
       console.log("in getSearchListingsService", data);
-      const response = await axios.post(`${API_URL}/loads/search`, data);
+      const response = await axios.post(`${API_URL}/loads/search`, data, {
+        withCredentials: true,
+      });
       console.log(response.data);
       return response.data;
     } catch (error) {

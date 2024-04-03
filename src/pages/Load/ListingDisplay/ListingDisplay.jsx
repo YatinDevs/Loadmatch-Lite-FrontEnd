@@ -9,7 +9,7 @@ function ListingDisplay() {
     async function fetchListings() {
       try {
         const data = await loadApi.getAllListings();
-        setListings(data);
+        setListings(data.data);
       } catch (error) {
         console.error("Error fetching listings:", error.message);
       }

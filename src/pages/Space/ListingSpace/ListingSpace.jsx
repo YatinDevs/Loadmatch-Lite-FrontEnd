@@ -9,7 +9,7 @@ function SpaceListingDisplay() {
     async function fetchListings() {
       try {
         const data = await spaceApi.getAllListings();
-        setListings(data);
+        setListings(data.data);
       } catch (error) {
         console.error("Error fetching space listings:", error.message);
       }
