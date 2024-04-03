@@ -83,9 +83,9 @@ function ImageUpload() {
           </p>
         </div>
         {source && (
-          <div className=" px-1  py-1 bg-gray-100 rounded-xl">
+          <div className="mt-2 px-1  py-1 bg-gray-100 rounded-xl">
             <div
-              className="w-full h-[150px] my-[10px] bg-cover bg-center  bg-no-repeat border  border-gray-300 border-5 rounded-lg cursor-pointer"
+              className="w-full h-[150px]  bg-cover bg-center  bg-no-repeat border  border-gray-300 border-5 rounded-lg cursor-pointer"
               style={{ backgroundImage: `url(${source})` }}
             ></div>
           </div>
