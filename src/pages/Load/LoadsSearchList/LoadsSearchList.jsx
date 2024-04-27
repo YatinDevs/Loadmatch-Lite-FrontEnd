@@ -4,6 +4,7 @@ import { Pagination } from "antd";
 import loadApi from "../../../services/loadApi";
 import LoadCard from "./LoadCard";
 import SearchSection from "../../Home/HeroSection/SearchSection/SearchSection";
+import ListingDisplay from "../ListingDisplay/ListingDisplay";
 
 function LoadSearchList() {
   const { searchQuery } = useParams();
@@ -46,11 +47,7 @@ function LoadSearchList() {
   return (
     <div className="mx-auto w-full ">
       <SearchSection />
-      <div>
-        {loads?.map((load) => (
-          <LoadCard key={load.load_id} {...load} />
-        ))}
-      </div>
+      <ListingDisplay />
 
       <div className="flex justify-center mt-4">
         <Pagination

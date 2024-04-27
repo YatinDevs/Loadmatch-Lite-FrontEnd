@@ -5,6 +5,40 @@ import AddButton from "../../../components/SmallComponents/Buttons/AddButton";
 import useLoadStore from "../../../store/useLoadStore.js";
 import ContentWrapper from "../../../components/ContentWrapper/ContentWrapper.jsx";
 import ImageUpload from "./ImageUpload.jsx";
+import InputFieldG from "../../../components/SmallComponents/InputField/InputFieldG.jsx";
+import { S3 } from "@aws-sdk/client-s3";
+import UploadImage from "./UploadImage.jsx";
+
+const config = {
+  bucketName: import.meta.env.AWS_SPACES_BUCKET_NAME,
+  accessKeyId: import.meta.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: import.meta.env.AWS_SECRET_ACCESS_KEY,
+  region: "blr1", // Specify your DigitalOcean Spaces region
+};
+
+const uploadImageToDigitalOcean = async (file) => {
+  const s3 = new S3({
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
+    region: config.region,
+  });
+
+  const params = {
+    Bucket: config.bucketName,
+    Key: file.name,
+    Body: file,
+    ACL: "public-read",
+  };
+
+  try {
+    const data = await s3.upload(params).promise();
+    console.log("File uploaded successfully:", data.Location);
+    return data.Location; // Return the uploaded image URL
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw error; // Throw error for handling in the component
+  }
+};
 
 function AddLoad() {
   const [formData, setFormData] = useState({
@@ -18,7 +52,13 @@ function AddLoad() {
     width: "",
     height: "",
     weight: "",
+    active: true,
   });
+  const [userID, setuserID] = useState("");
+
+
+
+
   const [imagePreviews, setImagePreviews] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,10 +91,50 @@ function AddLoad() {
     }));
   };
 
+  const handleImageUpload = async (file) => {
+    try {
+      const imageUrl = await uploadImageToDigitalOcean(file);
+      setFormData((prevState) => ({
+        ...prevState,
+        imageUrls: [...prevState.imageUrls, imageUrl],
+      }));
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // Handle error (e.g., show error message to the user)
+    }
+  };
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     try {
-      await useLoadStore.getState().createLoad(formData);
+
+
+
+      // Retrieve user data from localStorage
+      const userDataString = localStorage.getItem('userData');
+
+      // Check if userDataString is not null (i.e., data exists in localStorage)
+      if (userDataString) {
+        // Parse the userDataString back into an object
+        const userData = JSON.parse(userDataString);
+        const parsedUserID = parseInt(userData.user_id);
+        setuserID(parsedUserID);
+        // Now userData contains your user data
+        console.warn(userData, parsedUserID);
+      } else {
+        console.log('No user data found in localStorage');
+      }
+
+      // Update the formData with the userID
+    const updatedFormData = {
+      ...formData,
+      created_by: userID,
+    };
+    
+   
+  
+    const response =  await useLoadStore.getState().createLoad(updatedFormData);
 
       setFormData({
         from_city: "",
@@ -69,6 +149,9 @@ function AddLoad() {
         weight: "",
       });
       setImagePreviews([]);
+
+      localStorage.setItem('loadData', JSON.stringify(response.data.load));
+
     } catch (error) {
       console.error("Error creating load:", error);
     }
@@ -151,7 +234,7 @@ function AddLoad() {
             </div>
           </div>
           <div>
-            <ImageUpload />
+            <UploadImage />
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 ">

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SwapButton from "./components/Buttons/SwapButton.jsx";
 import loadApi from "../../../../services/loadApi.js";
 import spaceApi from "../../../../services/spaceApi.js";
+import { NavLink } from "react-router-dom";
 
 function SearchForm() {
   const [searchType, setSearchType] = useState("loads");
@@ -12,26 +13,15 @@ function SearchForm() {
   const [toCity, setToCity] = useState("");
   const navigate = useNavigate();
 
-  const handleSearchTypeChange = (value) => {
-    setSearchType(value);
-  };
-
   const handleSubmit = async () => {
     console.log("Search Type:", searchType);
 
     try {
-      if (searchType === "loads") {
-        const encodedPath = btoa(`${fromCity}-${toCity}`);
-        console.log("From City:", fromCity);
-        console.log("To City:", toCity);
+      const encodedPath = btoa(`${fromCity}-${toCity}`);
+      console.log("From City:", fromCity);
+      console.log("To City:", toCity);
 
-        navigate(`/loads/info-${encodedPath}`);
-      } else {
-        const encodedPath = btoa(`${fromCity}-${toCity}`);
-        console.log("From City:", fromCity);
-        console.log("To City:", toCity);
-        navigate(`/spaces/info-${encodedPath}`);
-      }
+      navigate(`/${searchType}/info-${encodedPath}`);
     } catch (error) {
       console.error("Error fetching search listings:", error);
       // Handle errors here
@@ -45,77 +35,86 @@ function SearchForm() {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="w-full relative opacity-100 shadow-2xl text-black rounded-xl py-4 pl-1 pr-6 md:p-8 flex flex-col "
-    >
-      <div className="ml-2 flex ">
-        <label
-          className="px-4 text-white  rounded-2xl mb-2 py-1"
-          htmlFor="searchTypeLoads"
-        >
-          <input
-            type="radio"
-            id="searchTypeLoads"
-            name="searchType"
-            value="loads"
-            checked={searchType === "loads"}
-            onChange={() => handleSearchTypeChange("loads")}
-          />{" "}
-          Loads
-        </label>
+    <div className="w-full bg-white p-4 relative opacity-100 shadow-2xl text-black rounded-xl flex gap-10 flex-col ">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className="w-full bg-white p-2 relative opacity-100 shadow-2xl text-black rounded-xl flex flex-col "
+      >
+        <div className=" flex space-x-4 border-solid border rounded-xl border-gray-400">
+          <button
+            className={`px-4 py-2 rounded-xl flex-1 focus:outline-none ${
+              searchType === "loads"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-blue-500"
+            }`}
+            onClick={() => setSearchType("loads")}
+          >
+            Loads
+          </button>
 
-        <label
-          className="px-4 text-white rounded-2xl mb-2 py-1"
-          htmlFor="searchTypeSpaces"
-        >
-          <input
-            type="radio"
-            id="searchTypeSpaces"
-            name="searchType"
-            value="spaces"
-            checked={searchType === "spaces"}
-            onChange={() => handleSearchTypeChange("spaces")}
-          />{" "}
-          Spaces
-        </label>
-      </div>
-      <div className="flex flex-col  ">
-        <InputFieldSearch
-          label="From City"
-          placeholder="Enter From City"
-          id="fromCity"
-          type="text"
-          value={fromCity}
-          onChange={(e) => setFromCity(e.target.value)}
-          handleCitySelect={(city) => setFromCity(city)}
-          className="mr-4"
-        />
-        <SwapButton
-          handleSwap={handleSwap}
-          className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-22px]"
-        />
+          <button
+            className={`px-4 py-2 rounded-2xl flex-1 focus:outline-none ${
+              searchType === "spaces"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-blue-500"
+            }`}
+            onClick={() => setSearchType("spaces")}
+          >
+            Spaces
+          </button>
+        </div>
+        <div className="flex flex-col">
+          <InputFieldSearch
+            label="From City"
+            placeholder="Enter From City"
+            id="fromCity"
+            type="text"
+            value={fromCity}
+            onChange={(e) => setFromCity(e.target.value)}
+            handleCitySelect={(city) => setFromCity(city)}
+            className="mr-4"
+          />
+          <SwapButton
+            handleSwap={handleSwap}
+            className="swap-button cursor-pointer z-[1] bg-blue-100 h-8 w-9 justify-center flex items-center self-center rounded-lg m-[-22px]"
+          />
 
-        <InputFieldSearch
-          label="To City"
-          placeholder="Enter To City"
-          id="toCity"
-          type="text"
-          value={toCity}
-          onChange={(e) => setToCity(e.target.value)}
-          handleCitySelect={(city) => setToCity(city)}
-          className="mr-4 mb-2"
-        />
-        <SearchButton
-          handleSubmit={handleSubmit}
-          type="submit"
-          label={`Search ${searchType}`}
-          className="px-12 py-4  rounded-full text-base md:text-lg font-semibold text-white bg-green-500 w-fit self-center absolute bottom-[-25px] hover:bg-green-600"
-        ></SearchButton>
+          <InputFieldSearch
+            label="To City"
+            placeholder="Enter To City"
+            id="toCity"
+            type="text"
+            value={toCity}
+            onChange={(e) => setToCity(e.target.value)}
+            handleCitySelect={(city) => setToCity(city)}
+            className="mr-4 mb-2"
+          />
+          <SearchButton
+            handleSubmit={handleSubmit}
+            type="submit"
+            label={`Search ${searchType}`}
+            className="px-8 py-3 rounded-full text-base md:text-lg font-semibold text-white bg-blue-500 w-fit self-center absolute bottom-[-25px] hover:bg-green-600"
+          ></SearchButton>
+        </div>
+      </form>
+      <div className=" flex space-x-4  ">
+        <NavLink
+          to={"/add-load"}
+          className={`px-4 py-2 rounded-2xl flex-1   focus:outline-none text-white bg-blue-500`}
+        >
+          Add Load
+        </NavLink>
+
+        <NavLink
+          to={"/add-space"}
+          className={`px-4 py-2 rounded-2xl flex-1 border-solid  focus:outline-none text-white bg-blue-500`}
+        >
+          Add Space
+        </NavLink>
       </div>
-    </form>
+    </div>
   );
 }
 

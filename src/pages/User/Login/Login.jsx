@@ -26,25 +26,50 @@ function Login() {
             const response = await UserApi.getlogin(formData);
             
             console.log("User login:", response);
-            // Save user data and token in local storage
-        localStorage.setItem('userData', JSON.stringify(response.user));
-        localStorage.setItem('authToken', response.auth);
 
-        // document.cookie = `userData=${JSON.stringify(response.user)}; path=/;`;
-        // document.cookie = `authToken=${response.auth}; path=/;`;
-        // Redirect or navigate to the desired page after successful login
-        navigate('/'); // Example: Navigate to the dashboard page
+            // Save user data and token in local storage
+            localStorage.setItem('userData', JSON.stringify(response.user));
+            localStorage.setItem('authToken', JSON.stringify(response.auth));
+            
+                const sessionCookieValue = getCookie('authToken');
+                console.warn(sessionCookieValue);
+                console.log(sessionCookieValue);
+
+                // Now you can use sessionCookieValue
+          
+        //    if(!sessionCookieValue){
+        //         return console.warn("cookies not found");
+        //    }
+            navigate('/'); // Example: Navigate to the dashboard page
+
+            // Wait for a short time before trying to access the cookie
+            // Adjust the timeout as needed
         } catch (error) {
             console.error("Error creating User:", error);
         }
     };
 
-    const navigate = useNavigate();
-    const handleAddLoadClick = () => {
-        // Navigate to the "add load" route
 
-        navigate('/signup');
-    };
+    const navigate = useNavigate();
+   
+
+    function getCookie(name) {
+        console.log("Looking for cookie:", name);
+        const cookies = document.cookie.split(';');
+        console.log("All cookies:", cookies);
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            console.log("Current cookie:", cookie);
+            if (cookie.startsWith(name + '=')) {
+                console.log("Found cookie:", cookie);
+                return cookie.substring(name.length + 1, cookie.length);
+            }
+        }
+        console.warn("Cookie not found:", name);
+        return null;
+    }
+    
+
 
     return (
         <div className="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">

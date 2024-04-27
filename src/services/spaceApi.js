@@ -3,8 +3,7 @@
 import axios from "axios";
 
 const API_URL =
-  import.meta.env.VITE_APP_DOCKER_API_URL ||
-  import.meta.env.VITE_APP_LOCAL_API_URL;
+  import.meta.env.VITE_APP_DOCKER_API_URL || "https://localhost:3003/api/v1";
 console.log(API_URL);
 const spaceApi = {
   createListing: async (data) => {

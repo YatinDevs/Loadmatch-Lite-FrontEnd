@@ -8,8 +8,8 @@ function SpaceListingDisplay() {
   useEffect(() => {
     async function fetchListings() {
       try {
-        const data = await spaceApi.getAllListings();
-        setListings(data.data);
+        const data = await spaceApi?.getAllListings();
+        setListings(data?.data);
       } catch (error) {
         console.error("Error fetching space listings:", error.message);
       }
@@ -19,10 +19,10 @@ function SpaceListingDisplay() {
   }, []);
 
   return (
-    <div className="max-w-screen-md mx-auto p-6">
+    <div className="max-w-screen-md mb-10 mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Space Listings</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {listings.map((listing) => (
+        {listings?.map((listing) => (
           <SpaceCard key={listing.space_id} {...listing} />
         ))}
       </div>

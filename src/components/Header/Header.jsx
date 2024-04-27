@@ -4,7 +4,6 @@ import Navbar from "./Navbar/Navbar";
 import "./style.css";
 import Profile from "./NavProfile/Profile";
 import Trips from "./Trips/Trips";
-import Hamburger from "./Hamburger/Hamburger";
 
 function Header() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
@@ -28,8 +27,8 @@ function Header() {
           <Logo />
           <Navbar />
         </div>
-        <div className="flex gap-2">
-          <Trips />
+        <Trips />
+        <div className="flex ">
           {/* {isMobile ? <Hamburger /> : <Profile />} */}
           <Profile />
         </div>

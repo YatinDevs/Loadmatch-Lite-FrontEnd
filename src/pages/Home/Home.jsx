@@ -8,15 +8,7 @@ import HeroSection from "./HeroSection/HeroSection";
 import SearchSection from "./HeroSection/SearchSection/SearchSection";
 
 function Home() {
-  return (
-    <>
-      <HeroSection />
-
-      <HighPriorityLoads />
-      <DemandRoutes />
-      <RecentMatches />
-    </>
-  );
+  return <div className="h-[1000px]"></div>;
 }
 
 export default Home;

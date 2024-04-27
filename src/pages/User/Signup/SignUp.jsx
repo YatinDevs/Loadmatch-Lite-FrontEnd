@@ -24,6 +24,10 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // const formDataArray = Object.entries(formData);
+
+      // const createdUser = await UserApi.createListing(formDataArray); 
+      
       const createdUser = await UserApi.createListing(formData); // Call createListing method from loadApi object
       console.log("User created:", createdUser);
       navigate('/login');
